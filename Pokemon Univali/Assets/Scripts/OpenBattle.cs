@@ -6,8 +6,11 @@ using UnityEngine.UI;
 
 public class OpenBattle : MonoBehaviour {
 
-	public GameObject battle;
-	public GameObject trigger;
+	public GameObject batalha;
+	public GameObject gatilhoParaBatalha;
+	public Text texto;
+	public Canvas canvas; 
+	public GameObject animacaoPassar;//continuar aqui
 	public bool terminoFala;
 	private string dialogo;
 	private string dialogoSave;
@@ -21,19 +24,16 @@ public class OpenBattle : MonoBehaviour {
 // -------------------------------------------------------
 
 	string Start(){
-		Text texto = GameObject.FindGameObjectWithTag ("Fala").GetComponent<Text> ();
 		dialogoSave = texto.text;
 		return dialogoSave;
-
 	}
 
 	IEnumerator OnTriggerEnter2D (Collider2D other){		
-		Animator anim = GameObject.FindGameObjectWithTag ("Passar").GetComponent<Animator> ();
-		CanvasGroup fala = GameObject.FindGameObjectWithTag ("CanvasFala").GetComponent<CanvasGroup> ();
-		//CanvasGroup passar = GameObject.FindGameObjectWithTag ("Passar").GetComponent<CanvasGroup> ();
-		trigger.GetComponent<GatilhoCompartilhado> ().falaTrigger = true;
+		Animator anim = animacaoPassar.GetComponent<Animator> ();
+		gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().falaTrigger = true;
+		CanvasGroup fala = canvas.GetComponent<CanvasGroup>();
 
-		Text texto = GameObject.FindGameObjectWithTag ("Fala").GetComponent<Text> ();
+		//Text texto = GameObject.FindGameObjectWithTag ("FalaCherobin").GetComponent<Text> ();
 
 		dialogo = texto.text;
 		texto.text = "";
@@ -135,8 +135,8 @@ public class OpenBattle : MonoBehaviour {
 
 		yield return StartCoroutine (sf.FadeToBlack ());
 
-		battle.SetActive(true);
-		trigger.GetComponent<GatilhoCompartilhado> ().battleTrigger = true;
+		batalha.SetActive(true);
+		gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().battleTrigger = true;
 
 		yield return StartCoroutine (sf.FadeToClear ());
 		}
