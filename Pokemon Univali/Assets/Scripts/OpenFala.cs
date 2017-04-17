@@ -29,7 +29,14 @@ public class OpenFala : MonoBehaviour {
 	}
 
 	IEnumerator OnTriggerStay2D (Collider2D other){		
+		//CanvasGroup espaco = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<CanvasGroup> ();
+		//espaco.alpha = 1;
+		Animator anim2 = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<Animator>();
+		anim2.SetBool("estaAparecendo", true);
+
 		if (Input.GetKeyDown (KeyCode.Space)) {	
+			//anim2.SetBool("estaAparecendo", false);
+
 			Animator anim = animacaoPassar.GetComponent<Animator> ();
 			gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().falaTrigger = true;
 			CanvasGroup fala = canvas.GetComponent<CanvasGroup> ();
@@ -131,5 +138,12 @@ public class OpenFala : MonoBehaviour {
 			dialogo6 = false;
 			gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().falaTrigger = false;
 		}
+	}
+
+	void OnTriggerExit2D (Collider2D other){
+		//CanvasGroup espaco = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<CanvasGroup> ();
+		//espaco.alpha = 0;
+		Animator anim2 = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<Animator>();
+		anim2.SetBool("estaAparecendo", false);
 	}
 }
