@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class OpenFala : MonoBehaviour {
+public class OpenFala2 : MonoBehaviour {
 
 	//public GameObject batalha;
 	public GameObject gatilhoParaBatalha;
@@ -21,22 +21,21 @@ public class OpenFala : MonoBehaviour {
 	private bool dialogo6 = false;
 	private int i;
 	private int j;
-// -------------------------------------------------------
+	// -------------------------------------------------------
 
 	string Start(){
 		dialogoSave = texto.text;
 		return dialogoSave;
 	}
 
-	IEnumerator OnTriggerStay2D (Collider2D other){		
-		//CanvasGroup espaco = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<CanvasGroup> ();
-		//espaco.alpha = 1;
-
+	void OnTriggerStay2D(){
 		Animator anim2 = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<Animator>();
 		anim2.SetBool("estaAparecendo", true);
-		 
-		if (Input.GetKeyDown (KeyCode.Space)) {	
-			//anim2.SetBool("estaAparecendo", false);
+	}
+
+	IEnumerator OnCollisionEnter2D (Collision2D other){		
+		//CanvasGroup espaco = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<CanvasGroup> ();
+		//espaco.alpha = 1;
 
 			Animator anim = animacaoPassar.GetComponent<Animator> ();
 			gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().falaTrigger = true;
@@ -137,8 +136,7 @@ public class OpenFala : MonoBehaviour {
 			dialogo4 = false;
 			dialogo5 = false;
 			dialogo6 = false;
-			gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().falaTrigger = false;
-		} 
+			gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().falaTrigger = false; 
 	}
 
 	void OnTriggerExit2D (Collider2D other){
