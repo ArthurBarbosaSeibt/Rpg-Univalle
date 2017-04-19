@@ -21,22 +21,54 @@ public class OpenFala : MonoBehaviour {
 	private bool dialogo6 = false;
 	private int i;
 	private int j;
+	public bool go = false;
+	public bool stay = false;
+	private float time1 = 3f;
+	private float delay = 0;
+
 // -------------------------------------------------------
+
+//	private bool wait(float seconds){
+//		timerMax = seconds;
+//		timer += Time.deltaTime;
+//
+//		while (timer += Time.deltaTime) {
+//		
+//		}
+//		return false;
+//	}
 
 	string Start(){
 		dialogoSave = texto.text;
 		return dialogoSave;
 	}
+		
+	void OnTriggerExit2D (Collider2D other){
+		//CanvasGroup espaco = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<CanvasGroup> ();
+		//espaco.alpha = 0;
+		Animator anim2 = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<Animator>();
+		anim2.SetBool("estaAparecendo", false);
+		stay = false;
 
-	IEnumerator OnTriggerStay2D (Collider2D other){		
+	}
+
+//	void OnTriggerEnter2D (Collider2D other){
+//		Rigidbody2D player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Rigidbody2D> ();
+//		player.WakeUp();
+//
+//	}
+
+	IEnumerator OnTriggerStay2D (Collider2D other)
+	{		
 		//CanvasGroup espaco = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<CanvasGroup> ();
 		//espaco.alpha = 1;
+		Animator anim2 = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<Animator> ();
+		anim2.SetBool ("estaAparecendo", true);
 
-		Animator anim2 = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<Animator>();
-		anim2.SetBool("estaAparecendo", true);
-		 
-		if (Input.GetKeyDown (KeyCode.Space)) {	
-			//anim2.SetBool("estaAparecendo", false);
+		//Rigidbody2D player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Rigidbody2D> ();
+		//player.Sleep();
+
+		if (Input.GetKeyDown (KeyCode.Space)) {
 
 			Animator anim = animacaoPassar.GetComponent<Animator> ();
 			gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().falaTrigger = true;
@@ -137,14 +169,10 @@ public class OpenFala : MonoBehaviour {
 			dialogo4 = false;
 			dialogo5 = false;
 			dialogo6 = false;
-			gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().falaTrigger = false;
-		} 
-	}
-
-	void OnTriggerExit2D (Collider2D other){
-		//CanvasGroup espaco = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<CanvasGroup> ();
-		//espaco.alpha = 0;
-		Animator anim2 = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<Animator>();
-		anim2.SetBool("estaAparecendo", false);
+			gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().falaTrigger = false; 
+			//StopAllCoroutines ();
+		}
 	}
 }
+
+
