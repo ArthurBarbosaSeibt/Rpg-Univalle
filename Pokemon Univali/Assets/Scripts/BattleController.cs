@@ -17,6 +17,10 @@ public class BattleController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Time.timeScale = 1;
+        player1Health = 100;
+        player2Health = 100;
+
         StartPlayer1Turn();
 
 	}
@@ -32,7 +36,7 @@ public class BattleController : MonoBehaviour {
             Time.timeScale = 0;
         }
 
-        if (player1Health > 0 && player1Turn && Input.GetKeyDown (KeyCode.Space))
+        if (player1Health > 0 && player1Turn && Input.GetMouseButtonDown(0))
         {
             Player1Fight();
             SwitchPlayers();
@@ -43,7 +47,8 @@ public class BattleController : MonoBehaviour {
 
     void StartPlayer1Turn()
     {
-        statusText.text = " Seu turno ... aperte espaço para atacar";
+        Time.timeScale = 1;
+        statusText.text = " Seu turno ... ";
 
     }
 
@@ -86,7 +91,7 @@ public class BattleController : MonoBehaviour {
     }
     IEnumerator Player2Turn()
     {
-        yield return new WaitForSeconds(Random.Range(2, 4));
+        yield return new WaitForSeconds(Random.Range(2, 2));
         Player2Fight();
         SwitchPlayers();
 
@@ -94,7 +99,7 @@ public class BattleController : MonoBehaviour {
 
     void Player2Fight()
     {
-        int damage = Random.Range(35, 36);
+        int damage = Random.Range(30, 36);
         player1Health -= damage;
 
         if (player1Health <= 0)
@@ -103,4 +108,26 @@ public class BattleController : MonoBehaviour {
             Time.timeScale = 0;
         }
     }
+
+    private void OnEnable()
+    {
+        
+        Time.timeScale = 1;
+        player1Turn = true;
+        StartPlayer1Turn();
+       
+       
+    }
+
+    private void OnDisable()
+    {
+        player1Turn = true;
+        player1Health = 100;
+        player2Health = 100;
+        player1Text.text = "Vida: " + player1Health;
+        player2Text.text = "Vida: " + player2Health;
+        
+        
+    }
+
 }
