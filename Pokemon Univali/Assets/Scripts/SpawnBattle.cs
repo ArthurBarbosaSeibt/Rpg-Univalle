@@ -5,23 +5,20 @@ using UnityEngine;
 public class SpawnBattle : MonoBehaviour {
 	public GameObject batalha;
 	public GameObject gatilhoParaBatalha;
-	public bool go = false;
 	private int random;
-	public bool infinito;
+	public bool infinito = false;
 
 	//Concertar amanhã!!
 	IEnumerator OnTriggerEnter2D (Collider2D other){		
+		print ("voce entrou!");
 		infinito = true;
 		while (infinito == true) { 
-			while (go == false) { 
-				yield return new WaitForSeconds (0.5f);
-				random = Random.Range (0, 100);
-				if (random <= 5) {
-					go = true;
-				}
+			if (infinito == false) {
+				break;
 			}
-
-			if (go == true) {
+			yield return new WaitForSeconds (0.5f);
+			random = Random.Range (0, 100);
+			if (random <= 5) {
 				gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().falaTrigger = true; //jogador fica parado
 
 				// transição para batalha
@@ -33,6 +30,10 @@ public class SpawnBattle : MonoBehaviour {
 				gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().battleTrigger = true;
 
 				yield return StartCoroutine (sf.FadeToClear ());
+
+				while (gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().fechou == false) {
+					yield return new WaitForSeconds (0.5f);
+				}
 			}
 		}
 	}

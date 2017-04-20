@@ -7,6 +7,7 @@ public class BattleController : MonoBehaviour {
     public Text statusText;
     public Text player1Text;
     public Text player2Text;
+	public GameObject battle;
 
     int player1Health = 100;
     int player2Health = 100;
@@ -32,8 +33,10 @@ public class BattleController : MonoBehaviour {
 
         if(player1Health < 1)
         {
-            statusText.text = " Você PERDEU";
+			player1Health = 0;
+			statusText.text = " Você PERDEU!";
             Time.timeScale = 0;
+
         }
 
 		if (player1Health > 0 && player1Turn && Input.anyKey)
@@ -48,7 +51,7 @@ public class BattleController : MonoBehaviour {
     void StartPlayer1Turn()
     {
         Time.timeScale = 1;
-        statusText.text = " Seu turno ... aperte qualquer tecla para atacar! ";
+        statusText.text = " Aperte qualquer tecla para atacar! ";
 
     }
 
@@ -56,11 +59,15 @@ public class BattleController : MonoBehaviour {
     {
         int damage = Random.Range(25, 35);
         player2Health -= damage;
-
+		if (player2Health - damage == 0) {
+			player2Health = 0;
+		}
         if (player2Health <= 0)
         {
-            statusText.text = " Você VENCEU";
+			player2Health = 0;
+			statusText.text = " Você VENCEU!";
             Time.timeScale = 0;
+
         }
 
     } 
@@ -101,10 +108,14 @@ public class BattleController : MonoBehaviour {
     {
         int damage = Random.Range(30, 36);
         player1Health -= damage;
+		if (player1Health - damage == 0) {
+			player1Health = 0;
+		}
 
         if (player1Health <= 0)
         {
-            statusText.text = "Você PERDEU";
+			player1Health = 0;
+			statusText.text = "Você PERDEU";
             Time.timeScale = 0;
         }
     }

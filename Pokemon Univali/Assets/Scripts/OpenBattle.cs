@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+//abrir a batalha após falar com o boss
 public class OpenBattle : MonoBehaviour {
 
-	public GameObject batalha;
-	public GameObject gatilhoParaBatalha;
-	public Text texto;
-	public Canvas canvas; 
-	public GameObject animacaoPassar;//continuar aqui
-	public bool terminoFala;
+	public GameObject batalha; //pega a objeto da batalha
+	public GameObject gatilhoParaBatalha; //pega a objeto onde ficam os gatilhos para a batalha
+	public Text texto; // pega o texto da fala
+	public Canvas canvas; // pega o canvas onde está o sprite do balão da fala
+	public GameObject animacaoPassar; // pega a animação de passar a fala
+
+	public bool terminoFala; 
 	private string dialogo;
 	private string dialogoSave;
 	private bool dialogo2 = false;
@@ -27,10 +28,11 @@ public class OpenBattle : MonoBehaviour {
 		dialogoSave = texto.text;
 		return dialogoSave;
 	}
+		
+	IEnumerator OnTriggerEnter2D (Collider2D other){ //ao entrar na área ao redor do boss		
 
-	IEnumerator OnTriggerEnter2D (Collider2D other){		
-		Animator anim = animacaoPassar.GetComponent<Animator> ();
-		gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().falaTrigger = true;
+		Animator anim = animacaoPassar.GetComponent<Animator> (); 
+		gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().falaTrigger = true; // faz o jogador ficar parado
 		CanvasGroup fala = canvas.GetComponent<CanvasGroup>();
 
 		//Text texto = GameObject.FindGameObjectWithTag ("FalaCherobin").GetComponent<Text> ();

@@ -8,6 +8,7 @@ public class GatilhoCompartilhado : MonoBehaviour {
 	public bool falaTrigger;
 	public GameObject battle;
 	public GameObject spawnBattle;
+	public bool fechou;
 
 	void Start(){
 		falaTrigger = false;
@@ -18,8 +19,8 @@ public class GatilhoCompartilhado : MonoBehaviour {
 		battleTrigger = false;
 		falaTrigger = false;
 		battle.SetActive(false);
-		spawnBattle.GetComponent<SpawnBattle>().go = false;
-		//spawnBattle.GetComponent<SpawnBattle>().infinito = false;
+		fechou = true;
+
         Time.timeScale = 1;
     }
 }
