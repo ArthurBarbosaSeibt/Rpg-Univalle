@@ -21,11 +21,6 @@ public class OpenFala : MonoBehaviour {
 	private bool dialogo6 = false;
 	private int i;
 	private int j;
-	public bool go = false;
-	public bool stay = false;
-	private float time1 = 3f;
-	private float delay = 0;
-
 // -------------------------------------------------------
 
 //	private bool wait(float seconds){
@@ -48,8 +43,6 @@ public class OpenFala : MonoBehaviour {
 		//espaco.alpha = 0;
 		Animator anim2 = GameObject.FindGameObjectWithTag ("pressSpace").GetComponent<Animator>();
 		anim2.SetBool("estaAparecendo", false);
-		stay = false;
-
 	}
 
 //	void OnTriggerEnter2D (Collider2D other){
