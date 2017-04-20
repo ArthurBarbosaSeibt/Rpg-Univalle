@@ -36,7 +36,7 @@ public class BattleController : MonoBehaviour {
             Time.timeScale = 0;
         }
 
-        if (player1Health > 0 && player1Turn && Input.GetMouseButtonDown(0))
+		if (player1Health > 0 && player1Turn && Input.anyKey)
         {
             Player1Fight();
             SwitchPlayers();
@@ -48,7 +48,7 @@ public class BattleController : MonoBehaviour {
     void StartPlayer1Turn()
     {
         Time.timeScale = 1;
-        statusText.text = " Seu turno ... ";
+        statusText.text = " Seu turno ... aperte qualquer tecla para atacar! ";
 
     }
 
