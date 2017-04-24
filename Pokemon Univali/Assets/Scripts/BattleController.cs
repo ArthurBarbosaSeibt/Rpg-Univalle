@@ -11,6 +11,7 @@ public class BattleController : MonoBehaviour {
 
     int player1Health = 100;
     int player2Health = 100;
+	int mana = 100;
 
     bool player1Turn = true;
 
@@ -21,6 +22,7 @@ public class BattleController : MonoBehaviour {
         Time.timeScale = 1;
         player1Health = 100;
         player2Health = 100;
+		mana = 100;
 
         StartPlayer1Turn();
 
@@ -29,8 +31,6 @@ public class BattleController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-
-
         if(player1Health < 1)
         {
 			player1Health = 0;
@@ -48,47 +48,44 @@ public class BattleController : MonoBehaviour {
         } 
 	}
 
-    void StartPlayer1Turn()
+	void Player1Fight()
+	{
+		int damage = Random.Range(25, 35);
+		player2Health -= damage;
+		if (player2Health - damage == 0) {
+			player2Health = 0;
+		}
+		if (player2Health <= 0)
+		{
+			player2Health = 0;
+			statusText.text = " Você VENCEU!";
+			Time.timeScale = 0;
+
+		}
+
+	}
+
+	void SwitchPlayers()
+	{
+		player1Text.text = "Vida: " + player1Health;
+		player2Text.text = "Vida: " + player2Health;
+		player1Turn = !player1Turn;
+
+		if (player1Turn && player1Health > 0)
+		{
+			StartPlayer1Turn();
+
+		} else if (player2Health > 0){
+			StartPlayer2Turn();
+		}
+	}
+
+	void StartPlayer1Turn()
     {
         Time.timeScale = 1;
         statusText.text = " Aperte qualquer tecla para atacar! ";
 
     }
-
-    void Player1Fight()
-    {
-        int damage = Random.Range(25, 35);
-        player2Health -= damage;
-		if (player2Health - damage == 0) {
-			player2Health = 0;
-		}
-        if (player2Health <= 0)
-        {
-			player2Health = 0;
-			statusText.text = " Você VENCEU!";
-            Time.timeScale = 0;
-
-        }
-
-    } 
-
-
-    void SwitchPlayers()
-    {
-        player1Text.text = "Vida: " + player1Health;
-        player2Text.text = "Vida: " + player2Health;
-        player1Turn = !player1Turn;
-
-        if (player1Turn && player1Health > 0)
-        {
-            StartPlayer1Turn();
-
-            } else if (player2Health > 0){
-                StartPlayer2Turn();
-            }
-        }
-
-    
 
     void StartPlayer2Turn()
     {
@@ -96,7 +93,8 @@ public class BattleController : MonoBehaviour {
         StartCoroutine(Player2Turn());
 
     }
-    IEnumerator Player2Turn()
+    
+	IEnumerator Player2Turn()
     {
         yield return new WaitForSeconds(Random.Range(2, 2));
         Player2Fight();
@@ -104,7 +102,7 @@ public class BattleController : MonoBehaviour {
 
     }
 
-    void Player2Fight()
+	void Player2Fight()
     {
         int damage = Random.Range(30, 36);
         player1Health -= damage;
@@ -122,12 +120,9 @@ public class BattleController : MonoBehaviour {
 
     private void OnEnable()
     {
-        
         Time.timeScale = 1;
         player1Turn = true;
         StartPlayer1Turn();
-       
-       
     }
 
     private void OnDisable()
@@ -136,9 +131,45 @@ public class BattleController : MonoBehaviour {
         player1Health = 100;
         player2Health = 100;
         player1Text.text = "Vida: " + player1Health;
-        player2Text.text = "Vida: " + player2Health;
-        
-        
+        player2Text.text = "Vida: " + player2Health;    
     }
+
+//	public void atkBasico(){
+//		if (player1Turn == true) {	
+//			int damage = Random.Range (20, 30);
+//			player2Health -= damage;
+//			statusText.text = "Você deu um ataque básico <br> e deu " + damage + " de dano!";
+//			Time.timeScale = 0;
+//			if (Input.anyKey) {
+//				Time.timeScale = 1;
+//			}
+//
+//			if (player2Health - damage == 0) {
+//				player2Health = 0;
+//			}
+//			if (player2Health <= 0) {
+//				player2Health = 0;
+//				statusText.text = " Você VENCEU!";
+//				Time.timeScale = 0;
+//			}
+//		}
+//	}
+//
+//	void atkFoda(){
+//		if (player1Turn == true) {
+//			int damage = Random.Range (20, 30) * 2;
+//			player2Health -= damage;
+//			mana -= 20;
+//
+//			if (player2Health - damage == 0) {
+//				player2Health = 0;
+//			}
+//			if (player2Health <= 0) {
+//				player2Health = 0;
+//				statusText.text = " Você VENCEU!";
+//				Time.timeScale = 0;
+//			}
+//		}
+//	}
 
 }
