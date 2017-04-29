@@ -25,7 +25,7 @@ public class BattleController : MonoBehaviour
         player1Health = 100;
         player2Health = 100;
         mana = 100;
-
+        player1Text.text = "Vida: " + player1Health + " Mana: " + mana;
         StartPlayer1Turn();
 
     }
@@ -70,12 +70,10 @@ public class BattleController : MonoBehaviour
 
     void Player1FightCritico()
     {
+
         int damage = Random.Range(50, 50);
         player2Health -= damage;
-        //if (player2Health - damage == 0)
-        //{
-        //    player2Health = 0;
-        //}
+       
         if (player2Health <= 0)
         {
             player2Health = 0;
@@ -97,7 +95,7 @@ public class BattleController : MonoBehaviour
 
     void SwitchPlayers()
     {
-        player1Text.text = "Vida: " + player1Health;
+        player1Text.text = "Vida: " + player1Health + " Mana: " + mana ;
         player2Text.text = "Vida: " + player2Health;
         player1Turn = !player1Turn;
 
@@ -129,7 +127,24 @@ public class BattleController : MonoBehaviour
     IEnumerator Player2Turn()
     {
         yield return new WaitForSeconds(Random.Range(2, 2));
+
+        if (player2Health >= 65)
+        {
         Player2Fight();
+        }
+
+        if (player2Health < 65 && player2Health > 30)
+        {
+            Player2FightCritico();
+        }
+
+        if (player2Health <= 30)
+        {           
+        int cura = Random.Range(35, 50);
+        player2Health += cura;  
+        }
+
+
         SwitchPlayers();
 
     }
@@ -137,6 +152,23 @@ public class BattleController : MonoBehaviour
     void Player2Fight()
     {
         int damage = Random.Range(30, 36);
+        player1Health -= damage;
+        if (player1Health - damage == 0)
+        {
+            player1Health = 0;
+        }
+
+        if (player1Health <= 0)
+        {
+            player1Health = 0;
+            statusText.text = "Você PERDEU";
+            Time.timeScale = 0;
+        }
+    }
+
+    void Player2FightCritico()
+    {
+        int damage = Random.Range(50, 50);
         player1Health -= damage;
         if (player1Health - damage == 0)
         {
@@ -163,7 +195,7 @@ public class BattleController : MonoBehaviour
         player1Turn = true;
         player1Health = 100;
         player2Health = 100;
-        player1Text.text = "Vida: " + player1Health;
+        player1Text.text = "Vida: " + player1Health + " Mana: " + mana;
         player2Text.text = "Vida: " + player2Health;
     }
 
@@ -173,29 +205,34 @@ public class BattleController : MonoBehaviour
         {
             Player1Fight();
             SwitchPlayers();
-
-
         }
+        
     }
     public void Critico()
     {
-        if (player1Health > 0 && player1Turn)
+        if (player1Health > 0 && player1Turn && mana >= 25)
         {
+            mana -= 25;
             Player1FightCritico();
             SwitchPlayers();
-
-
+        }
+        else
+        {
+            statusText.text = "Você NÃO tem mana suficiente";
         }
     }
 
     public void Cura()
     {
-        if (player1Health > 0 && player1Turn)
+        if (player1Health > 0 && player1Turn && mana >= 25)
         {
+            mana -= 25;
             Player1cura();
             SwitchPlayers();
-
-
+        }
+        else
+        {
+            statusText.text = "Você NÃO tem mana suficiente";
         }
     }
 
@@ -215,42 +252,4 @@ public class BattleController : MonoBehaviour
 
 
 
-            /*		if (player1Turn == true) {	
-                        int damage = Random.Range (20, 30);
-                        player2Health -= damage;
-                        statusText.text = "Você deu um ataque básico <br> e deu " + damage + " de dano!";
-                        Time.timeScale = 0;
-                        if (Input.anyKey) {
-                            Time.timeScale = 1;
-                        }
 
-                        if (player2Health - damage == 0) {
-                        player2Health = 0;
-                    }
-                        if (player2Health <= 0) {
-                            player2Health = 0;
-                            statusText.text = " Você VENCEU!";
-                            Time.timeScale = 0;
-                        }
-                */
-        
-	
-
-//	void atkFoda(){
-//		if (player1Turn == true) {
-//			int damage = Random.Range (20, 30) * 2;
-//			player2Health -= damage;
-//			mana -= 20;
-//
-//			if (player2Health - damage == 0) {
-//				player2Health = 0;
-//			}
-//			if (player2Health <= 0) {
-//				player2Health = 0;
-//				statusText.text = " Você VENCEU!";
-//				Time.timeScale = 0;
-//			}
-//		}
-//	}
-
-//}
