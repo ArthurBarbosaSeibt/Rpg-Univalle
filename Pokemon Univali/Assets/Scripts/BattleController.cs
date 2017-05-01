@@ -15,7 +15,7 @@ public class BattleController : MonoBehaviour
     int mana = 100;
 
     bool player1Turn = true;
-
+	bool curar = false;
 
 
     // Use this for initialization
@@ -88,18 +88,11 @@ public class BattleController : MonoBehaviour
     {
 		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
 
+		playerAnim.SetBool ("hamburgao", true);
 		int cura = Random.Range(25, 50);
         player1Health += cura;
-		playerAnim.SetBool ("hamburgao", true);
-		StartCoroutine (waitCura ());
+		curar = true;
     }
-
-	IEnumerator waitCura (){
-		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
-
-		yield return new WaitForSeconds (2f);
-		playerAnim.SetBool ("hamburgao", false);
-	}
 
     void SwitchPlayers()
     {
@@ -122,19 +115,27 @@ public class BattleController : MonoBehaviour
     {
         Time.timeScale = 1;
         statusText.text = " Seu turno, escolha uma opção !";
-
     }
 
     void StartPlayer2Turn()
     {
-        statusText.text = " Turno do oponente ...";
+        
         StartCoroutine(Player2Turn());
-
     }
 
     IEnumerator Player2Turn()
     {
-        yield return new WaitForSeconds(Random.Range(2, 2));
+
+		if (curar == true) {
+			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+			statusText.text = " Player usou Comer Hamburgão";
+			yield return new WaitForSeconds (2f);
+			playerAnim.SetBool ("hamburgao", false);
+			curar = false;
+		}
+		statusText.text = " Turno do oponente ...";
+
+		yield return new WaitForSeconds(Random.Range(2, 2));
 
         if (player2Health >= 65)
         {
