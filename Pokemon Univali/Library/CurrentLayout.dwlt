@@ -110,7 +110,7 @@ MonoBehaviour:
   m_MinSize: {x: 787, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 126
+  controlID: 178
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_MinSize: {x: 204, y: 342}
   m_MaxSize: {x: 4004, y: 8042}
   vertical: 1
-  controlID: 104
+  controlID: 105
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_MinSize: {x: 481, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 127
+  controlID: 179
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_MinSize: {x: 481, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 128
+  controlID: 129
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -540,7 +540,7 @@ MonoBehaviour:
     m_KeySerializationHelper:
     - {fileID: 1107956304137957568, guid: adcb7cfd82961da4f9fe74139252b0a0, type: 2}
     m_ValueSerializationHelper:
-    - {x: 691, y: 284.40002}
+    - {x: 691, y: 317.2}
   m_PreviewAnimator: {fileID: 0}
   m_AnimatorController: {fileID: 9100000, guid: adcb7cfd82961da4f9fe74139252b0a0,
     type: 2}
@@ -587,8 +587,8 @@ MonoBehaviour:
     height: 611
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 84290000
-    m_LastClickedID: 10628
+    m_SelectedIDs: 4e280000
+    m_LastClickedID: 10318
     m_ExpandedIDs: e4fbffff000000004e280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -682,19 +682,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Combate/combate
+    - Assets/Animation/Skills
   m_ViewMode: 1
   m_StartGridSize: 46
   m_LastFolders:
-  - Assets/Combate/combate
+  - Assets/Animation/Skills
   m_LastFoldersGridSize: 46
   m_LastProjectPath: C:\Users\User\Desktop\GitHub\Clone\Rpg-Univalle\Pokemon Univali
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 110}
-    m_SelectedIDs: 48250000
-    m_LastClickedID: 9544
-    m_ExpandedIDs: 000000000c250000ba250000bc2600001627000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 78}
+    m_SelectedIDs: 1a270000
+    m_LastClickedID: 10010
+    m_ExpandedIDs: 000000000c250000ba2500001627000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
