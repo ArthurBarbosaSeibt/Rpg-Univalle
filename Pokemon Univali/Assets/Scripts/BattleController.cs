@@ -20,8 +20,8 @@ public class BattleController : MonoBehaviour
 
     // Use this for initialization
     void Start()
-    {
-        Time.timeScale = 1;
+	{
+		Time.timeScale = 1;
         player1Health = 100;
         player2Health = 100;
         mana = 100;
@@ -86,9 +86,13 @@ public class BattleController : MonoBehaviour
 
     void Player1cura()
     {
-        int cura = Random.Range(25, 50);
+		// variável para controlar a opacidade do player;
+		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
+
+
+		int cura = Random.Range(25, 50);
         player1Health += cura;
-       
+		playerAnim.SetBool ("hamburgao", true);
 
     }
 
