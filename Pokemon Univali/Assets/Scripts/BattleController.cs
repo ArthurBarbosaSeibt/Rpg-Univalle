@@ -86,16 +86,20 @@ public class BattleController : MonoBehaviour
 
     void Player1cura()
     {
-		// variável para controlar a opacidade do player;
 		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
-
 
 		int cura = Random.Range(25, 50);
         player1Health += cura;
 		playerAnim.SetBool ("hamburgao", true);
-
+		StartCoroutine (waitCura ());
     }
 
+	IEnumerator waitCura (){
+		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
+
+		yield return new WaitForSeconds (2f);
+		playerAnim.SetBool ("hamburgao", false);
+	}
 
     void SwitchPlayers()
     {
