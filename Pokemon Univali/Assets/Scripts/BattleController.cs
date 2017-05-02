@@ -89,6 +89,7 @@ public class BattleController : MonoBehaviour
 		// variável para controlar a opacidade do player;
 		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
 
+<<<<<<< HEAD
 
 		int cura = Random.Range(25, 50);
         player1Health += cura;
@@ -96,6 +97,20 @@ public class BattleController : MonoBehaviour
 
     }
 
+=======
+		int cura = Random.Range(25, 50);
+        player1Health += cura;
+		playerAnim.SetBool ("hamburgao", true);
+		StartCoroutine (waitCura ());
+    }
+
+	IEnumerator waitCura (){
+		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
+
+		yield return new WaitForSeconds (2f);
+		playerAnim.SetBool ("hamburgao", false);
+	}
+>>>>>>> parent of 714d880... animação pt 3
 
     void SwitchPlayers()
     {
