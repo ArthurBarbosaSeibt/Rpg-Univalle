@@ -90,6 +90,7 @@ public class BattleController : MonoBehaviour
 		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 		int cura = Random.Range(25, 50);
         player1Health += cura;
@@ -98,6 +99,8 @@ public class BattleController : MonoBehaviour
     }
 
 =======
+=======
+>>>>>>> parent of 714d880... animação pt 3
 		int cura = Random.Range(25, 50);
         player1Health += cura;
 		playerAnim.SetBool ("hamburgao", true);
@@ -110,6 +113,9 @@ public class BattleController : MonoBehaviour
 		yield return new WaitForSeconds (2f);
 		playerAnim.SetBool ("hamburgao", false);
 	}
+<<<<<<< HEAD
+>>>>>>> parent of 714d880... animação pt 3
+=======
 >>>>>>> parent of 714d880... animação pt 3
 
     void SwitchPlayers()

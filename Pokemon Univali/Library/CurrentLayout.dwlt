@@ -110,7 +110,11 @@ MonoBehaviour:
   m_MaxSize: {x: 16008, y: 14042}
   vertical: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
   controlID: 3600
+=======
+  controlID: 178
+>>>>>>> parent of 714d880... animação pt 3
 =======
   controlID: 178
 >>>>>>> parent of 714d880... animação pt 3
@@ -171,6 +175,9 @@ MonoBehaviour:
   m_MaxSize: {x: 4004, y: 8042}
   vertical: 1
   controlID: 105
+<<<<<<< HEAD
+>>>>>>> parent of 714d880... animação pt 3
+=======
 >>>>>>> parent of 714d880... animação pt 3
 --- !u!114 &8
 MonoBehaviour:
@@ -723,13 +730,18 @@ MonoBehaviour:
     m_SearchArea: 0
     m_Folders:
 <<<<<<< HEAD
+<<<<<<< HEAD
     - Assets/Scripts
+=======
+    - Assets/Animation/Skills
+>>>>>>> parent of 714d880... animação pt 3
 =======
     - Assets/Animation/Skills
 >>>>>>> parent of 714d880... animação pt 3
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
+<<<<<<< HEAD
 <<<<<<< HEAD
   - Assets/Scripts
   m_LastFoldersGridSize: -1
@@ -741,6 +753,8 @@ MonoBehaviour:
     m_LastClickedID: 9540
     m_ExpandedIDs: 000000001025000000ca9a3bffffff7f
 =======
+=======
+>>>>>>> parent of 714d880... animação pt 3
   - Assets/Animation/Skills
   m_LastFoldersGridSize: 46
   m_LastProjectPath: C:\Users\User\Desktop\GitHub\Clone\Rpg-Univalle\Pokemon Univali
@@ -750,6 +764,9 @@ MonoBehaviour:
     m_SelectedIDs: 1a270000
     m_LastClickedID: 10010
     m_ExpandedIDs: 000000000c250000ba2500001627000000ca9a3bffffff7f
+<<<<<<< HEAD
+>>>>>>> parent of 714d880... animação pt 3
+=======
 >>>>>>> parent of 714d880... animação pt 3
     m_RenameOverlay:
       m_UserAcceptedRename: 0
