@@ -14,6 +14,9 @@ public class BattleController : MonoBehaviour
     int player2Health = 100;
     int mana = 100;
 
+	private bool curar = false;
+	private bool helloworld = false;
+
     bool player1Turn = true;
 
 
@@ -70,9 +73,12 @@ public class BattleController : MonoBehaviour
 
     void Player1FightCritico()
     {
+		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
 
         int damage = Random.Range(50, 50);
-        player2Health -= damage;
+		playerAnim.SetBool ("hello", true);
+		player2Health -= damage;
+		helloworld = true;
        
         if (player2Health <= 0)
         {
@@ -86,37 +92,13 @@ public class BattleController : MonoBehaviour
 
     void Player1cura()
     {
-		// variável para controlar a opacidade do player;
 		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 		int cura = Random.Range(25, 50);
         player1Health += cura;
 		playerAnim.SetBool ("hamburgao", true);
-
+		curar = true;
     }
-
-=======
-=======
->>>>>>> parent of 714d880... animação pt 3
-		int cura = Random.Range(25, 50);
-        player1Health += cura;
-		playerAnim.SetBool ("hamburgao", true);
-		StartCoroutine (waitCura ());
-    }
-
-	IEnumerator waitCura (){
-		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
-
-		yield return new WaitForSeconds (2f);
-		playerAnim.SetBool ("hamburgao", false);
-	}
-<<<<<<< HEAD
->>>>>>> parent of 714d880... animação pt 3
-=======
->>>>>>> parent of 714d880... animação pt 3
 
     void SwitchPlayers()
     {
@@ -144,14 +126,33 @@ public class BattleController : MonoBehaviour
 
     void StartPlayer2Turn()
     {
-        statusText.text = " Turno do oponente ...";
         StartCoroutine(Player2Turn());
 
     }
 
     IEnumerator Player2Turn()
     {
-        yield return new WaitForSeconds(Random.Range(2, 2));
+		if (curar == true) {
+			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+			statusText.text = " Você comeu um Hamburgão duplo";
+			yield return new WaitForSeconds (2f);
+			playerAnim.SetBool ("hamburgao", false);
+			yield return new WaitForSeconds (1f);
+			curar = false;
+		}
+
+		if (helloworld == true) {
+			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+			statusText.text = " Você programou o Hello World";
+			yield return new WaitForSeconds (5.1f);
+			playerAnim.SetBool ("hello", false);
+			yield return new WaitForSeconds (1f);
+			sair = true;
+			helloworld = false;
+		}
+
+		statusText.text = " Turno do oponente... Espere";
+		yield return new WaitForSeconds(Random.Range(2, 2));
 
         if (player2Health >= 65)
         {
