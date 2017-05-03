@@ -8,6 +8,11 @@ public class BattleController : MonoBehaviour
     public Text statusText;
     public Text player1Text;
     public Text player2Text;
+	public Button poder1;
+	public Button poder2;
+	public Button poder3;
+	public Button poder4;
+
     public GameObject battle;
 
     int player1Health = 100;
@@ -38,8 +43,21 @@ public class BattleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player1Health < 1)
+		player1Text.text = "Vida: " + player1Health + " Mana: " + mana ;
+		player2Text.text = "Vida: " + player2Health;
+
+		if (player2Health <= 0)
+		{
+			desabilitarBotoes ();
+			player2Health = 0;
+			statusText.text = " Você VENCEU!";
+			Time.timeScale = 0;
+
+		}
+
+		if (player1Health < 1)
         {
+			desabilitarBotoes ();
             player1Health = 0;
             statusText.text = " Você PERDEU!";
             Time.timeScale = 0;
@@ -59,9 +77,7 @@ public class BattleController : MonoBehaviour
     {
 		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
 
-		int damage = Random.Range(25, 35);
 		playerAnim.SetBool ("atacar", true);
-		player2Health -= damage;
 		atacar = true;
 
         if (player2Health <= 0)
@@ -82,9 +98,7 @@ public class BattleController : MonoBehaviour
     {
 		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
 
-        int damage = Random.Range(50, 50);
 		playerAnim.SetBool ("hello", true);
-		player2Health -= damage;
 		helloworld = true;
        
         if (player2Health <= 0)
@@ -99,6 +113,7 @@ public class BattleController : MonoBehaviour
 
 	public void PassarTurno()
 	{
+		desabilitarBotoes ();
 		StartCoroutine (passarTime ());
 		SwitchPlayers();
 	}
@@ -107,29 +122,21 @@ public class BattleController : MonoBehaviour
 		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
 		playerAnim.SetBool ("passar", true);
 		passar = true;
-			
-		statusText.text = " Você passou o turno :/";
-
 		yield return new WaitForSeconds (2f);
 		playerAnim.SetBool ("passar", false);
-		yield return new WaitForSeconds (2f);
 		passar = false;
+		habilitarBotoes ();
 	}
 
 	void Player1cura()
     {
 		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
-
-		int cura = Random.Range(25, 50);
-        player1Health += cura;
 		playerAnim.SetBool ("hamburgao", true);
 		curar = true;
     }
 
     void SwitchPlayers()
-    {
-        player1Text.text = "Vida: " + player1Health + " Mana: " + mana ;
-        player2Text.text = "Vida: " + player2Health;
+	{
         player1Turn = !player1Turn;
 
         if (player1Turn && player1Health > 0)
@@ -163,6 +170,10 @@ public class BattleController : MonoBehaviour
 			statusText.text = " Você comeu um Hamburgão duplo";
 			yield return new WaitForSeconds (2f);
 			playerAnim.SetBool ("hamburgao", false);
+
+			int cura = Random.Range(25, 50);
+			player1Health += cura;
+
 			yield return new WaitForSeconds (1f);
 			curar = false;
 		}
@@ -172,7 +183,11 @@ public class BattleController : MonoBehaviour
 			statusText.text = " Você programou o Hello World";
 			yield return new WaitForSeconds (5.30f);
 			playerAnim.SetBool ("hello", false);
-			yield return new WaitForSeconds (2f);
+
+			int damage = Random.Range(50, 50);
+			player2Health -= damage;
+
+			yield return new WaitForSeconds (0.4f);
 			helloworld = false;
 		}
 
@@ -181,6 +196,10 @@ public class BattleController : MonoBehaviour
 			statusText.text = " Você atacou!";
 			yield return new WaitForSeconds (1.40f);
 			playerAnim.SetBool ("atacar", false);
+
+			int damage = Random.Range(25, 35);
+			player2Health -= damage;
+
 			yield return new WaitForSeconds (1f);
 			atacar = false;
 		}
@@ -244,9 +263,24 @@ public class BattleController : MonoBehaviour
         }
     }
 
+	void habilitarBotoes(){
+		poder1.interactable = true;
+		poder2.interactable = true;
+		poder3.interactable = true;
+		poder4.interactable = true;
+	}
+
+	void desabilitarBotoes(){
+		poder1.interactable = false;
+		poder2.interactable = false;
+		poder3.interactable = false;
+		poder4.interactable = false;
+	}
+
     private void OnEnable()
     {
-        Time.timeScale = 1;
+		habilitarBotoes ();
+		Time.timeScale = 1;
         player1Turn = true;
         StartPlayer1Turn();
     }
