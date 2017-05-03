@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BattleController : MonoBehaviour
 {
@@ -62,6 +63,7 @@ public class BattleController : MonoBehaviour
             statusText.text = " Você PERDEU!";
             Time.timeScale = 0;
 
+            Application.LoadLevel("gameover");
         }
 			
         //if (player1Health > 0 && player1Turn && Input.anyKey)
@@ -243,6 +245,7 @@ public class BattleController : MonoBehaviour
             player1Health = 0;
             statusText.text = "Você PERDEU";
             Time.timeScale = 0;
+            Application.LoadLevel("gameover");
         }
     }
 
@@ -260,6 +263,7 @@ public class BattleController : MonoBehaviour
             player1Health = 0;
             statusText.text = "Você PERDEU";
             Time.timeScale = 0;
+            Application.LoadLevel("gameover");
         }
     }
 
@@ -290,6 +294,7 @@ public class BattleController : MonoBehaviour
         player1Turn = true;
         player1Health = 100;
         player2Health = 100;
+        mana = 100;
         player1Text.text = "Vida: " + player1Health + " Mana: " + mana;
         player2Text.text = "Vida: " + player2Health;
     }
