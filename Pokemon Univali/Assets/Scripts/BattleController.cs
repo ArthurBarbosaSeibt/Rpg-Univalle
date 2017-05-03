@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BattleController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class BattleController : MonoBehaviour
 	public Button poder3;
 	public Button poder4;
 
+	public Button Sair;
     public GameObject battle;
 
     int player1Health = 100;
@@ -51,6 +53,7 @@ public class BattleController : MonoBehaviour
 			desabilitarBotoes ();
 			player2Health = 0;
 			statusText.text = " Você VENCEU!";
+			Sair.interactable = true;
 			Time.timeScale = 0;
 
 		}
@@ -62,6 +65,7 @@ public class BattleController : MonoBehaviour
             statusText.text = " Você PERDEU!";
             Time.timeScale = 0;
 
+            Application.LoadLevel("gameover");
         }
 			
         //if (player1Health > 0 && player1Turn && Input.anyKey)
@@ -88,6 +92,7 @@ public class BattleController : MonoBehaviour
         {
             player2Health = 0;
             statusText.text = " Você VENCEU!";
+			Sair.interactable = true;
             Time.timeScale = 0;
 
         }
@@ -105,6 +110,8 @@ public class BattleController : MonoBehaviour
         {
             player2Health = 0;
             statusText.text = " Você VENCEU!";
+			Sair.interactable = true;
+
             Time.timeScale = 0;
 
         }
@@ -116,6 +123,8 @@ public class BattleController : MonoBehaviour
 		desabilitarBotoes ();
 		StartCoroutine (passarTime ());
 		SwitchPlayers();
+		//Application.LoadLevel("gameover");
+
 	}
     
 	IEnumerator passarTime(){
@@ -206,6 +215,7 @@ public class BattleController : MonoBehaviour
 
 
 		statusText.text = " Turno do oponente... Espere";
+		desabilitarBotoes ();
 		yield return new WaitForSeconds(Random.Range(2, 2));
 
         if (player2Health >= 65)
@@ -224,7 +234,7 @@ public class BattleController : MonoBehaviour
         player2Health += cura;  
         }
 
-
+		habilitarBotoes();
         SwitchPlayers();
 
     }
@@ -243,6 +253,7 @@ public class BattleController : MonoBehaviour
             player1Health = 0;
             statusText.text = "Você PERDEU";
             Time.timeScale = 0;
+            Application.LoadLevel("gameover");
         }
     }
 
@@ -260,6 +271,7 @@ public class BattleController : MonoBehaviour
             player1Health = 0;
             statusText.text = "Você PERDEU";
             Time.timeScale = 0;
+            Application.LoadLevel("gameover");
         }
     }
 
@@ -279,6 +291,8 @@ public class BattleController : MonoBehaviour
 
     private void OnEnable()
     {
+		Sair.interactable = false;
+
 		habilitarBotoes ();
 		Time.timeScale = 1;
         player1Turn = true;
@@ -287,9 +301,12 @@ public class BattleController : MonoBehaviour
 
     private void OnDisable()
     {
+		Sair.interactable = false;
+
         player1Turn = true;
         player1Health = 100;
         player2Health = 100;
+        mana = 100;
         player1Text.text = "Vida: " + player1Health + " Mana: " + mana;
         player2Text.text = "Vida: " + player2Health;
     }
@@ -311,7 +328,7 @@ public class BattleController : MonoBehaviour
             Player1FightCritico();
             SwitchPlayers();
         }
-        else
+        else if (player1Turn)
         {
             statusText.text = "Você NÃO tem mana suficiente";
         }
@@ -325,7 +342,7 @@ public class BattleController : MonoBehaviour
             Player1cura();
             SwitchPlayers();
         }
-        else
+        else if (player1Turn)
         {
             statusText.text = "Você NÃO tem mana suficiente";
         }

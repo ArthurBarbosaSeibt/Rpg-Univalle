@@ -18,7 +18,7 @@ public class SpawnBattle : MonoBehaviour {
 			}
 			yield return new WaitForSeconds (0.5f);
 			random = Random.Range (0, 100);
-			if (random <= 5) {
+			if (random <= 13) {
 				gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().falaTrigger = true; //jogador fica parado
 
 				// transição para batalha
