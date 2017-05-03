@@ -316,7 +316,7 @@ public class BattleController : MonoBehaviour
             Player1FightCritico();
             SwitchPlayers();
         }
-        else
+        else if (player1Turn)
         {
             statusText.text = "Você NÃO tem mana suficiente";
         }
@@ -330,7 +330,7 @@ public class BattleController : MonoBehaviour
             Player1cura();
             SwitchPlayers();
         }
-        else
+        else if (player1Turn)
         {
             statusText.text = "Você NÃO tem mana suficiente";
         }
