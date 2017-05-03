@@ -16,6 +16,8 @@ public class BattleController : MonoBehaviour
 
 	private bool curar = false;
 	private bool helloworld = false;
+	private bool passar = false;
+	private bool atacar = false;
 
     bool player1Turn = true;
 
@@ -43,7 +45,7 @@ public class BattleController : MonoBehaviour
             Time.timeScale = 0;
 
         }
-
+			
         //if (player1Health > 0 && player1Turn && Input.anyKey)
         //{
         //   Player1Fight();
@@ -55,8 +57,13 @@ public class BattleController : MonoBehaviour
 
     void Player1Fight()
     {
-        int damage = Random.Range(25, 35);
-        player2Health -= damage;
+		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
+
+		int damage = Random.Range(25, 35);
+		playerAnim.SetBool ("atacar", true);
+		player2Health -= damage;
+		atacar = true;
+
         if (player2Health <= 0)
         {
             player2Health = 0;
@@ -90,7 +97,26 @@ public class BattleController : MonoBehaviour
 
     }
 
-    void Player1cura()
+	public void PassarTurno()
+	{
+		StartCoroutine (passarTime ());
+		SwitchPlayers();
+	}
+    
+	IEnumerator passarTime(){
+		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
+		playerAnim.SetBool ("passar", true);
+		passar = true;
+			
+		statusText.text = " Você passou o turno :/";
+
+		yield return new WaitForSeconds (2f);
+		playerAnim.SetBool ("passar", false);
+		yield return new WaitForSeconds (2f);
+		passar = false;
+	}
+
+	void Player1cura()
     {
 		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
 
@@ -144,11 +170,21 @@ public class BattleController : MonoBehaviour
 		if (helloworld == true) {
 			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
 			statusText.text = " Você programou o Hello World";
-			yield return new WaitForSeconds (4.19f);
+			yield return new WaitForSeconds (5.30f);
 			playerAnim.SetBool ("hello", false);
-			yield return new WaitForSeconds (1f);
+			yield return new WaitForSeconds (2f);
 			helloworld = false;
 		}
+
+		if (atacar == true) {
+			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+			statusText.text = " Você atacou!";
+			yield return new WaitForSeconds (1.40f);
+			playerAnim.SetBool ("atacar", false);
+			yield return new WaitForSeconds (1f);
+			atacar = false;
+		}
+
 
 		statusText.text = " Turno do oponente... Espere";
 		yield return new WaitForSeconds(Random.Range(2, 2));
@@ -261,16 +297,18 @@ public class BattleController : MonoBehaviour
         }
     }
 
-    public void PassarTurno()
-    {
-        if (player1Health > 0 && player1Turn)
-        {
-            
-            SwitchPlayers();
-
-
-        }
-    }
+//    public void PassarTurno()
+//    {
+//        if (player1Health > 0 && player1Turn)
+//        {
+//			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
+//			playerAnim.SetBool ("passar", true);
+//			passar = true;
+//            SwitchPlayers();
+//
+//
+//        }
+//    }
 
 
 }
