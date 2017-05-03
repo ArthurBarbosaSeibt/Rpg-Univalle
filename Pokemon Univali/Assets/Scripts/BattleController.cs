@@ -144,10 +144,9 @@ public class BattleController : MonoBehaviour
 		if (helloworld == true) {
 			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
 			statusText.text = " Você programou o Hello World";
-			yield return new WaitForSeconds (5.1f);
+			yield return new WaitForSeconds (4.19f);
 			playerAnim.SetBool ("hello", false);
 			yield return new WaitForSeconds (1f);
-			sair = true;
 			helloworld = false;
 		}
 
