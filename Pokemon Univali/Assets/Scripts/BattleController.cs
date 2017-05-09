@@ -39,7 +39,6 @@ public class BattleController : MonoBehaviour
         mana = 100;
         player1Text.text = "Vida: " + player1Health + " Mana: " + mana;
         StartPlayer1Turn();
-
     }
 
     // Update is called once per frame
@@ -55,7 +54,6 @@ public class BattleController : MonoBehaviour
 			statusText.text = " Você VENCEU!";
 			Sair.interactable = true;
 			Time.timeScale = 0;
-
 		}
 
 		if (player1Health < 1)
@@ -75,73 +73,6 @@ public class BattleController : MonoBehaviour
 
 
         // } 
-    }
-
-    void Player1Fight()
-    {
-		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
-
-		playerAnim.SetBool ("atacar", true);
-		atacar = true;
-
-        if (player2Health <= 0)
-        {
-            player2Health = 0;
-        }
-        if (player2Health <= 0)
-        {
-            player2Health = 0;
-            statusText.text = " Você VENCEU!";
-			Sair.interactable = true;
-            Time.timeScale = 0;
-
-        }
-
-    }
-
-    void Player1FightCritico()
-    {
-		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
-
-		playerAnim.SetBool ("hello", true);
-		helloworld = true;
-       
-        if (player2Health <= 0)
-        {
-            player2Health = 0;
-            statusText.text = " Você VENCEU!";
-			Sair.interactable = true;
-
-            Time.timeScale = 0;
-
-        }
-
-    }
-
-	public void PassarTurno()
-	{
-		desabilitarBotoes ();
-		StartCoroutine (passarTime ());
-		SwitchPlayers();
-		//Application.LoadLevel("gameover");
-
-	}
-    
-	IEnumerator passarTime(){
-		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
-		playerAnim.SetBool ("passar", true);
-		passar = true;
-		yield return new WaitForSeconds (2f);
-		playerAnim.SetBool ("passar", false);
-		passar = false;
-		habilitarBotoes ();
-	}
-
-	void Player1cura()
-    {
-		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
-		playerAnim.SetBool ("hamburgao", true);
-		curar = true;
     }
 
     void SwitchPlayers()
@@ -189,13 +120,21 @@ public class BattleController : MonoBehaviour
 
 		if (helloworld == true) {
 			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+			//fim da animação da skill, o início está na função do botão
 			statusText.text = " Você programou o Hello World";
 			yield return new WaitForSeconds (5.30f);
 			playerAnim.SetBool ("hello", false);
 
 			int damage = Random.Range(50, 50);
-			player2Health -= damage;
 
+			//animação inimigo tomando dano
+			Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleCherobin").GetComponent<Animator> ();
+			NPCAnim.SetBool ("tomarDano", true);
+			yield return new WaitForSeconds (0.5f);
+			NPCAnim.SetBool ("tomarDano", false);
+			//fim da animação
+
+			player2Health -= damage;
 			yield return new WaitForSeconds (0.4f);
 			helloworld = false;
 		}
@@ -207,8 +146,15 @@ public class BattleController : MonoBehaviour
 			playerAnim.SetBool ("atacar", false);
 
 			int damage = Random.Range(25, 35);
-			player2Health -= damage;
 
+			//animação inimigo tomando dano
+			Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleCherobin").GetComponent<Animator> ();
+			NPCAnim.SetBool ("tomarDano", true);
+			yield return new WaitForSeconds (0.5f);
+			NPCAnim.SetBool ("tomarDano", false);
+			//fim da animação
+
+			player2Health -= damage;
 			yield return new WaitForSeconds (1f);
 			atacar = false;
 		}
@@ -216,22 +162,37 @@ public class BattleController : MonoBehaviour
 
 		statusText.text = " Turno do oponente... Espere";
 		desabilitarBotoes ();
-		yield return new WaitForSeconds(Random.Range(2, 2));
+		yield return new WaitForSeconds(2f);
 
-        if (player2Health >= 65)
-        {
-        Player2Fight();
+        if (player2Health >= 65){
+			statusText.text = " Oponente atacou normalmente!";
+			yield return new WaitForSeconds(1.5f);
+			Player2Fight();
+			// animação do player tomando dano
+			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+			playerAnim.SetBool ("tomarDano", true);
+			yield return new WaitForSeconds (0.5f);
+			playerAnim.SetBool ("tomarDano", false);
         }
 
         if (player2Health < 65 && player2Health > 30)
         {
-            Player2FightCritico();
+			statusText.text = " Oponente deu um super ataque";
+			yield return new WaitForSeconds(1.5f);
+			Player2FightCritico();
+			// animação do player tomando dano
+			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+			playerAnim.SetBool ("tomarDano", true);
+			yield return new WaitForSeconds (0.5f);
+			playerAnim.SetBool ("tomarDano", false);
+
         }
 
-        if (player2Health <= 30)
-        {           
-        int cura = Random.Range(35, 50);
-        player2Health += cura;  
+        if (player2Health <= 30){
+			statusText.text = " Oponente se curou!";
+			yield return new WaitForSeconds(1.5f);	
+        	int cura = Random.Range(35, 50);
+        	player2Health += cura;  
         }
 
 		habilitarBotoes();
@@ -275,41 +236,72 @@ public class BattleController : MonoBehaviour
         }
     }
 
-	void habilitarBotoes(){
-		poder1.interactable = true;
-		poder2.interactable = true;
-		poder3.interactable = true;
-		poder4.interactable = true;
+	void Player1Fight()
+	{
+		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
+
+		playerAnim.SetBool ("atacar", true);
+		atacar = true;
+
+		if (player2Health <= 0)
+		{
+			player2Health = 0;
+		}
+		if (player2Health <= 0)
+		{
+			player2Health = 0;
+			statusText.text = " Você VENCEU!";
+			Sair.interactable = true;
+			Time.timeScale = 0;
+
+		}
+
 	}
 
-	void desabilitarBotoes(){
-		poder1.interactable = false;
-		poder2.interactable = false;
-		poder3.interactable = false;
-		poder4.interactable = false;
+	void Player1FightCritico()
+	{
+		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
+
+		playerAnim.SetBool ("hello", true);
+		helloworld = true;
+
+		if (player2Health <= 0)
+		{
+			player2Health = 0;
+			statusText.text = " Você VENCEU!";
+			Sair.interactable = true;
+
+			Time.timeScale = 0;
+
+		}
+
 	}
 
-    private void OnEnable()
-    {
-		Sair.interactable = false;
+	public void PassarTurno()
+	{
+		desabilitarBotoes ();
+		StartCoroutine (passarTime ());
+		SwitchPlayers();
+		//Application.LoadLevel("gameover");
 
+	}
+
+	IEnumerator passarTime(){
+		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
+		playerAnim.SetBool ("passar", true);
+		passar = true;
+		yield return new WaitForSeconds (2f);
+		playerAnim.SetBool ("passar", false);
+		passar = false;
 		habilitarBotoes ();
-		Time.timeScale = 1;
-        player1Turn = true;
-        StartPlayer1Turn();
-    }
+	}
 
-    private void OnDisable()
-    {
-		Sair.interactable = false;
-
-        player1Turn = true;
-        player1Health = 100;
-        player2Health = 100;
-        mana = 100;
-        player1Text.text = "Vida: " + player1Health + " Mana: " + mana;
-        player2Text.text = "Vida: " + player2Health;
-    }
+	void Player1cura()
+	{
+		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
+		playerAnim.SetBool ("hamburgao", true);
+		curar = true;
+	}
 
     public void atkBasico()
     {
@@ -347,6 +339,49 @@ public class BattleController : MonoBehaviour
             statusText.text = "Você NÃO tem mana suficiente";
         }
     }
+
+	void habilitarBotoes(){
+		poder1.interactable = true;
+		poder2.interactable = true;
+		poder3.interactable = true;
+		poder4.interactable = true;
+	}
+
+	void desabilitarBotoes(){
+		poder1.interactable = false;
+		poder2.interactable = false;
+		poder3.interactable = false;
+		poder4.interactable = false;
+	}
+
+	void desabilitarSkills(){
+		curar = false;
+		helloworld = false;
+		passar = false;
+		atacar = false;
+	}
+
+	private void OnEnable()
+	{
+		Sair.interactable = false;
+		desabilitarSkills ();
+		habilitarBotoes ();
+		Time.timeScale = 1;
+		player1Turn = true;
+		StartPlayer1Turn();
+	}
+
+	private void OnDisable()
+	{
+		Sair.interactable = false;
+
+		player1Turn = true;
+		player1Health = 100;
+		player2Health = 100;
+		mana = 100;
+		player1Text.text = "Vida: " + player1Health + " Mana: " + mana;
+		player2Text.text = "Vida: " + player2Health;
+	}
 
 //    public void PassarTurno()
 //    {
