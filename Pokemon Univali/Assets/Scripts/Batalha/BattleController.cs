@@ -42,13 +42,12 @@ public class BattleController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 		player1Text.text = "Vida: " + player1Health + " Mana: " + mana ;
 		player2Text.text = "Vida: " + player2Health;
 
-		if (player2Health <= 0)
-		{
+		if (player2Health <= 0){
 			desabilitarBotoes ();
 			player2Health = 0;
 			statusText.text = " Você VENCEU!";
@@ -56,24 +55,19 @@ public class BattleController : MonoBehaviour
 			Time.timeScale = 0;
 		}
 
-		if (player1Health < 1)
-        {
+		if (player1Health < 1){
+			statusText.text = " Você PERDEU!";
 			desabilitarBotoes ();
             player1Health = 0;
-            statusText.text = " Você PERDEU!";
-            Time.timeScale = 0;
-
-            Application.LoadLevel("gameover");
+			StartCoroutine(gameover());
         }
-			
-        //if (player1Health > 0 && player1Turn && Input.anyKey)
-        //{
-        //   Player1Fight();
-        //  SwitchPlayers();
-
-
-        // } 
     }
+
+	IEnumerator gameover(){
+		yield return new WaitForSeconds (4f);
+		desabilitarNPCs ();
+		Application.LoadLevel("gameover");
+	}
 
     void SwitchPlayers()
 	{
@@ -127,12 +121,14 @@ public class BattleController : MonoBehaviour
 
 			int damage = Random.Range(50, 50);
 
-			//animação inimigo tomando dano
-			Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleCherobin").GetComponent<Animator> ();
-			NPCAnim.SetBool ("tomarDano", true);
-			yield return new WaitForSeconds (0.5f);
-			NPCAnim.SetBool ("tomarDano", false);
-			//fim da animação
+			if (TriggerTutorial.tutorial == true){
+				//animação inimigo tomando dano
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleCherobin").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
+				//fim da animação
+			}		
 
 			player2Health -= damage;
 			yield return new WaitForSeconds (0.4f);
@@ -147,18 +143,19 @@ public class BattleController : MonoBehaviour
 
 			int damage = Random.Range(25, 35);
 
+			if (TriggerTutorial.tutorial == true){
 			//animação inimigo tomando dano
 			Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleCherobin").GetComponent<Animator> ();
 			NPCAnim.SetBool ("tomarDano", true);
 			yield return new WaitForSeconds (0.5f);
 			NPCAnim.SetBool ("tomarDano", false);
 			//fim da animação
-
+			}
+			
 			player2Health -= damage;
 			yield return new WaitForSeconds (1f);
 			atacar = false;
 		}
-
 
 		statusText.text = " Turno do oponente... Espere";
 		desabilitarBotoes ();
@@ -166,8 +163,11 @@ public class BattleController : MonoBehaviour
 
         if (player2Health >= 65){
 			statusText.text = " Oponente atacou normalmente!";
-			yield return new WaitForSeconds(1.5f);
-			Player2Fight();
+			yield return new WaitForSeconds(2.5f);
+
+			int damage = Random.Range(30, 36);
+			player1Health -= damage;
+
 			// animação do player tomando dano
 			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
 			playerAnim.SetBool ("tomarDano", true);
@@ -178,8 +178,11 @@ public class BattleController : MonoBehaviour
         if (player2Health < 65 && player2Health > 30)
         {
 			statusText.text = " Oponente deu um super ataque";
-			yield return new WaitForSeconds(1.5f);
-			Player2FightCritico();
+			yield return new WaitForSeconds(2.5f);
+
+			int damage = Random.Range(50, 50);
+			player1Health -= damage;
+
 			// animação do player tomando dano
 			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
 			playerAnim.SetBool ("tomarDano", true);
@@ -190,7 +193,7 @@ public class BattleController : MonoBehaviour
 
         if (player2Health <= 30){
 			statusText.text = " Oponente se curou!";
-			yield return new WaitForSeconds(1.5f);	
+			yield return new WaitForSeconds(2.5f);	
         	int cura = Random.Range(35, 50);
         	player2Health += cura;  
         }
@@ -200,41 +203,14 @@ public class BattleController : MonoBehaviour
 
     }
 
-    void Player2Fight()
-    {
-        int damage = Random.Range(30, 36);
-        player1Health -= damage;
-        if (player1Health <= 0)
-        {
-            player1Health = 0;
-        }
-
-        if (player1Health <= 0)
-        {
-            player1Health = 0;
-            statusText.text = "Você PERDEU";
-            Time.timeScale = 0;
-            Application.LoadLevel("gameover");
-        }
-    }
-
-    void Player2FightCritico()
-    {
-        int damage = Random.Range(50, 50);
-        player1Health -= damage;
-      if (player1Health <= 0)
-        {
-            player1Health = 0;
-        }
-
-        if (player1Health <= 0)
-        {
-            player1Health = 0;
-            statusText.text = "Você PERDEU";
-            Time.timeScale = 0;
-            Application.LoadLevel("gameover");
-        }
-    }
+	IEnumerator tutorialDano() {
+		//animação inimigo tomando dano
+		Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleCherobin").GetComponent<Animator> ();
+		NPCAnim.SetBool ("tomarDano", true);
+		yield return new WaitForSeconds (0.5f);
+		NPCAnim.SetBool ("tomarDano", false);
+		//fim da animação
+	}
 
 	void Player1Fight()
 	{
@@ -242,20 +218,6 @@ public class BattleController : MonoBehaviour
 
 		playerAnim.SetBool ("atacar", true);
 		atacar = true;
-
-		if (player2Health <= 0)
-		{
-			player2Health = 0;
-		}
-		if (player2Health <= 0)
-		{
-			player2Health = 0;
-			statusText.text = " Você VENCEU!";
-			Sair.interactable = true;
-			Time.timeScale = 0;
-
-		}
-
 	}
 
 	void Player1FightCritico()
@@ -264,17 +226,6 @@ public class BattleController : MonoBehaviour
 
 		playerAnim.SetBool ("hello", true);
 		helloworld = true;
-
-		if (player2Health <= 0)
-		{
-			player2Health = 0;
-			statusText.text = " Você VENCEU!";
-			Sair.interactable = true;
-
-			Time.timeScale = 0;
-
-		}
-
 	}
 
 	public void PassarTurno()
@@ -293,6 +244,7 @@ public class BattleController : MonoBehaviour
 		yield return new WaitForSeconds (2f);
 		playerAnim.SetBool ("passar", false);
 		passar = false;
+		yield return new WaitForSeconds(2.9f);	
 		habilitarBotoes ();
 	}
 
@@ -361,6 +313,13 @@ public class BattleController : MonoBehaviour
 		atacar = false;
 	}
 
+	void desabilitarNPCs (){
+		TriggerAluno2f.aluno2f = false;
+		TriggerNapoleao.napoleao = false;
+		TriggerClaytinho.claytinho = false;
+		TriggerTutorial.tutorial = false;
+	}
+
 	private void OnEnable()
 	{
 		Sair.interactable = false;
@@ -370,7 +329,7 @@ public class BattleController : MonoBehaviour
 		player1Turn = true;
 		StartPlayer1Turn();
 	}
-
+		
 	private void OnDisable()
 	{
 		Sair.interactable = false;
