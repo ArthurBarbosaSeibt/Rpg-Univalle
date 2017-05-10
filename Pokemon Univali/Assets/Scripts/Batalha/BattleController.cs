@@ -17,6 +17,8 @@ public class BattleController : MonoBehaviour
 	public Button Sair;
     public GameObject battle;
 
+	public GameObject blockNapoleao;
+
     int player1Health = 100;
     int player2Health = 100;
     int mana = 100;
@@ -51,6 +53,9 @@ public class BattleController : MonoBehaviour
 			desabilitarBotoes ();
 			player2Health = 0;
 			statusText.text = " Você VENCEU!";
+			if (TriggerNapoleao.napoleao == true){
+				blockNapoleao.SetActive(false);
+			}
 			Sair.interactable = true;
 			Time.timeScale = 0;
 		}
