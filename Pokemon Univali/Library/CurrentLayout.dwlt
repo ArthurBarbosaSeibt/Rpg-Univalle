@@ -107,10 +107,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 948
-  m_MinSize: {x: 785, y: 492}
-  m_MaxSize: {x: 18006, y: 14042}
+  m_MinSize: {x: 787, y: 492}
+  m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 56
+  controlID: 11
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -156,10 +156,10 @@ MonoBehaviour:
     y: 0
     width: 1233
     height: 948
-  m_MinSize: {x: 204, y: 421}
-  m_MaxSize: {x: 4004, y: 8021}
+  m_MinSize: {x: 204, y: 442}
+  m_MaxSize: {x: 4004, y: 8042}
   vertical: 1
-  controlID: 57
+  controlID: 12
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -279,8 +279,8 @@ MonoBehaviour:
     y: 0
     width: 204
     height: 632
-  m_MinSize: {x: 204, y: 221}
-  m_MaxSize: {x: 4004, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -465,14 +465,14 @@ MonoBehaviour:
     width: 1229
     height: 454
   m_SceneLighting: 1
-  lastFramingTime: 0
+  lastFramingTime: 1009.1674476302245
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 966.64954, y: -12.85949, z: 0}
+    m_Target: {x: 957.8827, y: -13.934411, z: 0}
     speed: 2
-    m_Value: {x: 966.64954, y: -12.85949, z: 0}
+    m_Value: {x: 957.8827, y: -13.934411, z: 0}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -499,9 +499,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 66.34864
+    m_Target: 32.17533
     speed: 2
-    m_Value: 66.34864
+    m_Value: 32.17533
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -655,7 +655,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: f63afcff0a3bfcff10dffcffe44dfdfff4eaffff68fbffff6afbffffe4fbffff000000006229000088290000262a00000e2b0000422b00001c2c00004a2c0000902c0000542d0000682d00002e2e0000
+    m_ExpandedIDs: b2e3fbff9ce4fbff7ce5fbff80e5fbff86e5fbffc2f0fbffacf1fbff8cf2fbff90f2fbff96f2fbff8428fcff6e29fcff502afcff562afcff5e2afcff9aeafcff50ebfcffeeeefcffd6effcffb8f0fcff10f2fcff16f2fcff40f3fcfff80fffff0410ffffaa23ffff6424ffff9826ffff6429ffff962bffff2a39ffff0689ffffe4fbffff000000007e2a0000a82e0000ca2e0000d4520000ee520000e05f0000fa5f0000506c0000ca72000092730000bc730000647400001a75000076750000de7500000e7600007e76000098760000dc7600007c7700008a770000a8770000e677000008780000dcfa0000befd0000f033010082350100e23501005a36010074360100043701008437010000380100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -748,18 +748,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scripts/TriggerPersonagens
+    - Assets/Scripts/Batalha
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/TriggerPersonagens
+  - Assets/Scripts/Batalha
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\User\Desktop\GitHub\Clone\Rpg-Univalle\Pokemon Univali
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 46}
-    m_SelectedIDs: e0280000
-    m_LastClickedID: 10464
+    m_SelectedIDs: 58270000
+    m_LastClickedID: 10072
     m_ExpandedIDs: 00000000202500007225000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -788,7 +788,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002025000072250000362600006c280000
+    m_ExpandedIDs: 000000002025000072250000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

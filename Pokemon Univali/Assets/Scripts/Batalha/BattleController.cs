@@ -30,8 +30,6 @@ public class BattleController : MonoBehaviour
 
     bool player1Turn = true;
 
-
-
     // Use this for initialization
     void Start()
 	{
@@ -202,42 +200,157 @@ public class BattleController : MonoBehaviour
 		desabilitarBotoes ();
 		yield return new WaitForSeconds(2f);
 
-        if (player2Health >= 65){
-			statusText.text = " Oponente atacou normalmente!";
-			yield return new WaitForSeconds(2.5f);
+		if (TriggerTutorial.tutorial == true) {
+			if (player2Health >= 65) {
+				statusText.text = " Cherobin atacou normalmente!";
+				yield return new WaitForSeconds (2.5f);
 
-			int damage = Random.Range(30, 36);
-			player1Health -= damage;
+				int damage = Random.Range (15, 25);
+				player1Health -= damage;
 
-			// animação do player tomando dano
-			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
-			playerAnim.SetBool ("tomarDano", true);
-			yield return new WaitForSeconds (0.5f);
-			playerAnim.SetBool ("tomarDano", false);
-        }
+				// animação do player tomando dano
+				Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+				playerAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				playerAnim.SetBool ("tomarDano", false);
+			}
 
-        if (player2Health < 65 && player2Health > 30)
-        {
-			statusText.text = " Oponente deu um super ataque";
-			yield return new WaitForSeconds(2.5f);
+			if (player2Health < 65 && player2Health > 30) {
+				statusText.text = " Cherobin deu um super ataque";
+				yield return new WaitForSeconds (2.5f);
 
-			int damage = Random.Range(50, 50);
-			player1Health -= damage;
+				int damage = Random.Range (35, 45);
+				player1Health -= damage;
 
-			// animação do player tomando dano
-			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
-			playerAnim.SetBool ("tomarDano", true);
-			yield return new WaitForSeconds (0.5f);
-			playerAnim.SetBool ("tomarDano", false);
+				// animação do player tomando dano
+				Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+				playerAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				playerAnim.SetBool ("tomarDano", false);
 
-        }
+			}
 
-        if (player2Health <= 30){
-			statusText.text = " Oponente se curou!";
-			yield return new WaitForSeconds(2.5f);	
-        	int cura = Random.Range(35, 50);
-        	player2Health += cura;  
-        }
+			if (player2Health <= 30) {
+				statusText.text = " Cherobin se curou!";
+				yield return new WaitForSeconds (2.5f);	
+				int cura = Random.Range (35, 50);
+				player2Health += cura;  
+			}
+		}
+
+		if (TriggerClaytinho.claytinho == true) {
+			if (player2Health >= 65) {
+				statusText.text = " Claytinho atacou normalmente!";
+				yield return new WaitForSeconds (2.5f);
+
+				int damage = Random.Range (25, 30);
+				player1Health -= damage;
+
+				// animação do player tomando dano
+				Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+				playerAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				playerAnim.SetBool ("tomarDano", false);
+			}
+
+			if (player2Health < 65 && player2Health > 30) {
+				statusText.text = " Claytinho deu um super ataque";
+				yield return new WaitForSeconds (2.5f);
+
+				int damage = Random.Range (35, 50);
+				player1Health -= damage;
+
+				// animação do player tomando dano
+				Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+				playerAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				playerAnim.SetBool ("tomarDano", false);
+
+			}
+
+			if (player2Health <= 30) {
+				statusText.text = " Claytinho se curou!";
+				yield return new WaitForSeconds (2.5f);	
+				int cura = Random.Range (10, 50);
+				player2Health += cura;  
+			}
+		}
+
+		if (TriggerAluno2f.aluno2f == true) {
+			if (player2Health >= 65) {
+				statusText.text = " Aluno da 2ª fase atacou normalmente!";
+				yield return new WaitForSeconds (2.5f);
+
+				int damage = Random.Range (20, 25);
+				player1Health -= damage;
+
+				// animação do player tomando dano
+				Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+				playerAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				playerAnim.SetBool ("tomarDano", false);
+			}
+
+			if (player2Health < 65 && player2Health > 30) {
+				statusText.text = " Aluno da 2ª fase deu um super ataque";
+				yield return new WaitForSeconds (2.5f);
+
+				int damage = Random.Range (25, 50);
+				player1Health -= damage;
+
+				// animação do player tomando dano
+				Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+				playerAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				playerAnim.SetBool ("tomarDano", false);
+
+			}
+
+			if (player2Health <= 30) {
+				statusText.text = " Aluno da 2ª fase se curou!";
+				yield return new WaitForSeconds (2.5f);	
+				int cura = Random.Range (10, 50);
+				player2Health += cura;  
+			}
+		}
+
+		if (TriggerNapoleao.napoleao == true) {
+			if (player2Health >= 65) {
+				statusText.text = " Napoleão atacou normalmente!";
+				yield return new WaitForSeconds (2.5f);
+
+				int damage = Random.Range (30, 36);
+				player1Health -= damage;
+
+				// animação do player tomando dano
+				Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+				playerAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				playerAnim.SetBool ("tomarDano", false);
+			}
+
+			if (player2Health < 65 && player2Health > 30) {
+				statusText.text = " Napoleão usou o Raio Boardgamezador";
+				yield return new WaitForSeconds (2.5f);
+
+				int damage = Random.Range (50,60);
+				player1Health -= damage;
+
+				// animação do player tomando dano
+				Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+				playerAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				playerAnim.SetBool ("tomarDano", false);
+
+			}
+
+			if (player2Health <= 30) {
+				statusText.text = " Napoleão se curou!";
+				yield return new WaitForSeconds (2.5f);	
+				int cura = Random.Range (35, 50);
+				player2Health += cura;  
+			}
+		}
 
 		habilitarBotoes();
         SwitchPlayers();
