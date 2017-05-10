@@ -30,11 +30,10 @@ void FixedUpdate () {
 				rbody.WakeUp ();
 			}
 
-			rbody.MovePosition (rbody.position + movement_vector * Time.deltaTime * 4);
+			rbody.MovePosition (rbody.position + movement_vector * Time.deltaTime * 6);
 		} else{
 			anim.SetBool ("iswalking", false);
 		}
-
 }
 }
 

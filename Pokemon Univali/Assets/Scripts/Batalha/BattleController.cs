@@ -121,14 +121,32 @@ public class BattleController : MonoBehaviour
 
 			int damage = Random.Range(50, 50);
 
+			//gambiarra
 			if (TriggerTutorial.tutorial == true){
-				//animação inimigo tomando dano
 				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleCherobin").GetComponent<Animator> ();
 				NPCAnim.SetBool ("tomarDano", true);
 				yield return new WaitForSeconds (0.5f);
 				NPCAnim.SetBool ("tomarDano", false);
-				//fim da animação
-			}		
+			}
+			if (TriggerNapoleao.napoleao == true){
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleNapoleao").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
+			}
+			if (TriggerClaytinho.claytinho == true){
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleClaytinho").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
+			}
+			if (TriggerAluno2f.aluno2f == true){
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleAlunoSpawn2f").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
+			}
+			//fim da gambiarra
 
 			player2Health -= damage;
 			yield return new WaitForSeconds (0.4f);
@@ -143,15 +161,33 @@ public class BattleController : MonoBehaviour
 
 			int damage = Random.Range(25, 35);
 
+			//gambiarra
 			if (TriggerTutorial.tutorial == true){
-			//animação inimigo tomando dano
-			Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleCherobin").GetComponent<Animator> ();
-			NPCAnim.SetBool ("tomarDano", true);
-			yield return new WaitForSeconds (0.5f);
-			NPCAnim.SetBool ("tomarDano", false);
-			//fim da animação
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleCherobin").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
 			}
-			
+			if (TriggerNapoleao.napoleao == true){
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleNapoleao").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
+			}
+			if (TriggerClaytinho.claytinho == true){
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleClaytinho").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
+			}
+			if (TriggerAluno2f.aluno2f == true){
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleAlunoSpawn2f").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
+			}
+			//fim da gambiarra
+
 			player2Health -= damage;
 			yield return new WaitForSeconds (1f);
 			atacar = false;
