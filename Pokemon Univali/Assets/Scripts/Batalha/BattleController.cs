@@ -14,14 +14,17 @@ public class BattleController : MonoBehaviour
 	public Button poder3;
 	public Button poder4;
 
-	public Button Sair;
+	public GameObject Sair;
     public GameObject battle;
+	public GameObject gatilhoParaBatalha;
 
 	public GameObject blockNapoleao;
 
     int player1Health = 100;
     int player2Health = 100;
     int mana = 100;
+
+
 
 	private bool curar = false;
 	private bool helloworld = false;
@@ -33,7 +36,7 @@ public class BattleController : MonoBehaviour
     // Use this for initialization
     void Start()
 	{
-		Time.timeScale = 1;
+		//Time.timeScale = 1;
         player1Health = 100;
         player2Health = 100;
         mana = 100;
@@ -48,25 +51,56 @@ public class BattleController : MonoBehaviour
 		player2Text.text = "Vida: " + player2Health;
 
 		if (player2Health <= 0){
+
+			if (TriggerAluno2f.aluno2f == true) {
+				XPcontroller.xp += 4;
+			}
+
+			if (TriggerTutorial.tutorial == true) {
+				XPcontroller.xp += 8;
+				TriggerTutorial.tutorial = false;
+			}
+
+			if (TriggerClaytinho.claytinho == true) {
+				XPcontroller.xp += 8;
+			}
+
+			if (TriggerNapoleao.napoleao == true) {
+				XPcontroller.xp += 16;
+				blockNapoleao.SetActive (false);
+			}
+
+			statusText.text = " Você VENCEU!";
+			//StartCoroutine(win());
+
 			desabilitarBotoes ();
 			player2Health = 0;
-			statusText.text = " Você VENCEU!";
-			if (TriggerNapoleao.napoleao == true){
-				blockNapoleao.SetActive(false);
-			}
-			Sair.interactable = true;
+
+			Sair.SetActive (true);
 			Time.timeScale = 0;
 		}
 
 		if (player1Health < 1){
-			statusText.text = " Você PERDEU!";
+			StopCoroutine (Player2Turn());
+
 			desabilitarBotoes ();
             player1Health = 0;
-			StartCoroutine(gameover());
-        }
+			StartCoroutine(gameover());			
+		}
     }
 
+	IEnumerator win(){
+		yield return new WaitForSeconds (4f);
+		gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().falaTrigger = false;
+		gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().battleTrigger = false;
+		gatilhoParaBatalha.GetComponent<GatilhoCompartilhado> ().fechou = false;
+		desabilitarNPCs ();
+		battle.SetActive (false);
+	}
+
 	IEnumerator gameover(){
+		statusText.text = " Você PERDEU!";
+
 		yield return new WaitForSeconds (4f);
 		desabilitarNPCs ();
 		Application.LoadLevel("gameover");
@@ -89,7 +123,7 @@ public class BattleController : MonoBehaviour
 
     void StartPlayer1Turn()
     {
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
         statusText.text = " Seu turno, escolha uma opção !";
 
     }
@@ -154,6 +188,7 @@ public class BattleController : MonoBehaviour
 			player2Health -= damage;
 			yield return new WaitForSeconds (0.4f);
 			helloworld = false;
+
 		}
 
 		if (atacar == true) {
@@ -194,6 +229,7 @@ public class BattleController : MonoBehaviour
 			player2Health -= damage;
 			yield return new WaitForSeconds (1f);
 			atacar = false;
+
 		}
 
 		statusText.text = " Turno do oponente... Espere";
@@ -476,7 +512,7 @@ public class BattleController : MonoBehaviour
 
 	private void OnEnable()
 	{
-		Sair.interactable = false;
+		Sair.SetActive(false);
 		desabilitarSkills ();
 		habilitarBotoes ();
 		Time.timeScale = 1;
@@ -486,7 +522,7 @@ public class BattleController : MonoBehaviour
 		
 	private void OnDisable()
 	{
-		Sair.interactable = false;
+		Sair.SetActive(false);
 
 		player1Turn = true;
 		player1Health = 100;

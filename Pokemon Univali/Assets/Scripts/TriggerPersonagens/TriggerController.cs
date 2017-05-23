@@ -15,7 +15,7 @@ public class TriggerController : MonoBehaviour {
 		if (TriggerTutorial.tutorial == true) {
 			tutorial.SetActive (true);
 		} else {
-			tutorial.SetActive (false);
+			StartCoroutine (tutorialClose ());
 		}
 
 		if (TriggerNapoleao.napoleao == true) {
@@ -35,5 +35,10 @@ public class TriggerController : MonoBehaviour {
 		} else {
 			aluno2f.SetActive (false);
 		}
+	}
+
+	IEnumerator tutorialClose(){
+		yield return new WaitForSeconds (3.5f);
+		tutorial.SetActive (false);
 	}
 }
