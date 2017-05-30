@@ -53,7 +53,7 @@ public class BattleController : MonoBehaviour
 		if (player2Health <= 0){
 
 			if (TriggerAluno2f.aluno2f == true) {
-				XPcontroller.xp += 4;
+				XPcontroller.xp += 50;
 			}
 
 			if (TriggerTutorial.tutorial == true) {
@@ -156,7 +156,7 @@ public class BattleController : MonoBehaviour
 			yield return new WaitForSeconds (5.30f);
 			playerAnim.SetBool ("hello", false);
 
-			int damage = Random.Range(50, 50);
+			int damage = Random.Range(100, 200);
 
 			//gambiarra
 			if (TriggerTutorial.tutorial == true){
