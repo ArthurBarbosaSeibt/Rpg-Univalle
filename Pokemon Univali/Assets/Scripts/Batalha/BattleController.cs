@@ -9,10 +9,16 @@ public class BattleController : MonoBehaviour
     public Text statusText;
     public Text player1Text;
     public Text player2Text;
+
+	//poderes
 	public Button poder1;
 	public Button poder2;
 	public Button poder3;
 	public Button poder4;
+	public Button poder5;
+
+	public GameObject poderNapo;
+	//fim dos poderes
 
 	public GameObject Sair;
     public GameObject battle;
@@ -27,6 +33,7 @@ public class BattleController : MonoBehaviour
 
 
 	private bool curar = false;
+	private bool napo = false;
 	private bool helloworld = false;
 	private bool passar = false;
 	private bool atacar = false;
@@ -68,6 +75,7 @@ public class BattleController : MonoBehaviour
 			if (TriggerNapoleao.napoleao == true) {
 				XPcontroller.xp += 16;
 				blockNapoleao.SetActive (false);
+				poderNapo.SetActive (true);
 			}
 
 			statusText.text = " Você VENCEU!";
@@ -142,7 +150,7 @@ public class BattleController : MonoBehaviour
 			yield return new WaitForSeconds (2f);
 			playerAnim.SetBool ("hamburgao", false);
 
-			int cura = Random.Range(25, 50);
+			int cura = Random.Range(25*XPcontroller.bonus, 50*XPcontroller.bonus);
 			player1Health += cura;
 
 			yield return new WaitForSeconds (1f);
@@ -156,7 +164,7 @@ public class BattleController : MonoBehaviour
 			yield return new WaitForSeconds (5.30f);
 			playerAnim.SetBool ("hello", false);
 
-			int damage = Random.Range(100, 200);
+			int damage = Random.Range(100*XPcontroller.bonus, 200*XPcontroller.bonus);
 
 			//gambiarra
 			if (TriggerTutorial.tutorial == true){
@@ -191,13 +199,53 @@ public class BattleController : MonoBehaviour
 
 		}
 
+		if (napo == true) {
+			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+			statusText.text = " Você Crackeou o Photoshop!!";
+			yield return new WaitForSeconds (1.40f);
+			playerAnim.SetBool ("atacar", false);
+
+			int damage = Random.Range(1*XPcontroller.bonus, 112*XPcontroller.bonus);
+
+			//gambiarra
+			if (TriggerTutorial.tutorial == true){
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleCherobin").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
+			}
+			if (TriggerNapoleao.napoleao == true){
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleNapoleao").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
+			}
+			if (TriggerClaytinho.claytinho == true){
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleClaytinho").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
+			}
+			if (TriggerAluno2f.aluno2f == true){
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleAlunoSpawn2f").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
+			}
+			//fim da gambiarra
+
+			player2Health -= damage;
+			yield return new WaitForSeconds (1f);
+			napo = false;
+		}
+
 		if (atacar == true) {
 			Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
 			statusText.text = " Você atacou!";
 			yield return new WaitForSeconds (1.40f);
 			playerAnim.SetBool ("atacar", false);
 
-			int damage = Random.Range(25, 35);
+			int damage = Random.Range(25*XPcontroller.bonus, 30*XPcontroller.bonus);
 
 			//gambiarra
 			if (TriggerTutorial.tutorial == true){
@@ -237,7 +285,7 @@ public class BattleController : MonoBehaviour
 		yield return new WaitForSeconds(2f);
 
 		if (TriggerTutorial.tutorial == true) {
-			if (player2Health >= 65) {
+			if (player2Health >= 20) {
 				statusText.text = " Cherobin atacou normalmente!";
 				yield return new WaitForSeconds (2.5f);
 
@@ -251,7 +299,7 @@ public class BattleController : MonoBehaviour
 				playerAnim.SetBool ("tomarDano", false);
 			}
 
-			if (player2Health < 65 && player2Health > 30) {
+			if (player2Health < 20) {
 				statusText.text = " Cherobin deu um super ataque";
 				yield return new WaitForSeconds (2.5f);
 
@@ -266,12 +314,12 @@ public class BattleController : MonoBehaviour
 
 			}
 
-			if (player2Health <= 30) {
-				statusText.text = " Cherobin se curou!";
-				yield return new WaitForSeconds (2.5f);	
-				int cura = Random.Range (35, 50);
-				player2Health += cura;  
-			}
+//			if (player2Health <= 30) {
+//				statusText.text = " Cherobin se curou!";
+//				yield return new WaitForSeconds (2.5f);	
+//				int cura = Random.Range (35, 50);
+//				player2Health += cura;  
+//			}
 		}
 
 		if (TriggerClaytinho.claytinho == true) {
@@ -418,6 +466,14 @@ public class BattleController : MonoBehaviour
 		helloworld = true;
 	}
 
+	void Player1napo()
+	{
+		Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator>();
+
+		playerAnim.SetBool ("atacar", true);
+		napo = true;
+	}
+
 	public void PassarTurno()
 	{
 		desabilitarBotoes ();
@@ -482,11 +538,26 @@ public class BattleController : MonoBehaviour
         }
     }
 
+	public void napoSkill()
+	{
+		if (player1Health > 0 && player1Turn && mana >= 25)
+		{
+			mana -= 25;
+			Player1napo();
+			SwitchPlayers();
+		}
+		else if (player1Turn)
+		{
+			statusText.text = "Você NÃO tem mana suficiente";
+		}
+	}
+
 	void habilitarBotoes(){
 		poder1.interactable = true;
 		poder2.interactable = true;
 		poder3.interactable = true;
 		poder4.interactable = true;
+		poder5.interactable = true;	
 	}
 
 	void desabilitarBotoes(){
@@ -494,6 +565,7 @@ public class BattleController : MonoBehaviour
 		poder2.interactable = false;
 		poder3.interactable = false;
 		poder4.interactable = false;
+		poder5.interactable = false;	
 	}
 
 	void desabilitarSkills(){
