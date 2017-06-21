@@ -8,7 +8,7 @@ public class TriggerController : MonoBehaviour {
 	public GameObject napoleao;
 	public GameObject claytinho;
 	public GameObject aluno2f;
-
+	public GameObject adorno;
 
 	// Update is called once per frame
 	void Update () {
@@ -34,6 +34,12 @@ public class TriggerController : MonoBehaviour {
 			aluno2f.SetActive (true);
 		} else {
 			aluno2f.SetActive (false);
+		}
+
+		if (TriggerAdorno.adorno == true) {
+			adorno.SetActive (true);
+		} else {
+			adorno.SetActive (false);
 		}
 	}
 

@@ -64,7 +64,7 @@ public class XPcontroller : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		testeXP.text = "XP: ";
+		testeXP.text = "XP: "+ xp;
 
 		skill1.text = "Ataque Normal\n"+25*bonus+ " a " +30*bonus+ " dano\nSem Custo";
 		skill2.text = "Crackear Photoshop\n"+1*bonus+ " a " +112*bonus+ " dano\n25 de Mana";

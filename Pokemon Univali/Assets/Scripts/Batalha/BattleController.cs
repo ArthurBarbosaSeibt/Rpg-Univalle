@@ -45,8 +45,12 @@ public class BattleController : MonoBehaviour
 	{
 		//Time.timeScale = 1;
         player1Health = 100;
-        player2Health = 100;
-        mana = 100;
+		if (TriggerAluno2f.aluno2f == true) {
+			player2Health = 50;
+		} else {
+			player2Health = 100;
+		}
+		mana = 100;
         player1Text.text = "Vida: " + player1Health + " Mana: " + mana;
         StartPlayer1Turn();
     }
@@ -60,22 +64,28 @@ public class BattleController : MonoBehaviour
 		if (player2Health <= 0){
 
 			if (TriggerAluno2f.aluno2f == true) {
-				XPcontroller.xp += 50;
+				XPcontroller.xp += 10;
 			}
 
 			if (TriggerTutorial.tutorial == true) {
-				XPcontroller.xp += 8;
+				XPcontroller.xp += 20;
 				TriggerTutorial.tutorial = false;
 			}
 
 			if (TriggerClaytinho.claytinho == true) {
-				XPcontroller.xp += 8;
+				XPcontroller.xp += 16;
 			}
 
 			if (TriggerNapoleao.napoleao == true) {
-				XPcontroller.xp += 16;
+				XPcontroller.xp += 54;
 				blockNapoleao.SetActive (false);
 				poderNapo.SetActive (true);
+			}
+
+			if (TriggerAdorno.adorno == true) {
+				XPcontroller.xp += 76;
+//				blockNapoleao.SetActive (false);
+//				poderNapo.SetActive (true);
 			}
 
 			statusText.text = " Você VENCEU!";
@@ -191,6 +201,12 @@ public class BattleController : MonoBehaviour
 				yield return new WaitForSeconds (0.5f);
 				NPCAnim.SetBool ("tomarDano", false);
 			}
+			if (TriggerAdorno.adorno == true){
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleAdorno").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
+			}
 			//fim da gambiarra
 
 			player2Health -= damage;
@@ -232,6 +248,12 @@ public class BattleController : MonoBehaviour
 				yield return new WaitForSeconds (0.5f);
 				NPCAnim.SetBool ("tomarDano", false);
 			}
+			if (TriggerAdorno.adorno == true){
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleAdorno").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
+			}
 			//fim da gambiarra
 
 			player2Health -= damage;
@@ -268,6 +290,12 @@ public class BattleController : MonoBehaviour
 			}
 			if (TriggerAluno2f.aluno2f == true){
 				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleAlunoSpawn2f").GetComponent<Animator> ();
+				NPCAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				NPCAnim.SetBool ("tomarDano", false);
+			}
+			if (TriggerAdorno.adorno == true){
+				Animator NPCAnim = GameObject.FindGameObjectWithTag ("battleAdorno").GetComponent<Animator> ();
 				NPCAnim.SetBool ("tomarDano", true);
 				yield return new WaitForSeconds (0.5f);
 				NPCAnim.SetBool ("tomarDano", false);
@@ -436,6 +464,44 @@ public class BattleController : MonoBehaviour
 			}
 		}
 
+		if (TriggerAdorno.adorno == true) {
+			if (player2Health >= 65) {
+				statusText.text = " Adorno usou cobrar pasta A4";
+				yield return new WaitForSeconds (2.5f);
+
+				int damage = Random.Range (30, 36);
+				player1Health -= damage;
+
+				// animação do player tomando dano
+				Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+				playerAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				playerAnim.SetBool ("tomarDano", false);
+			}
+
+			if (player2Health < 65 && player2Health > 30) {
+				statusText.text = " Adorno usou cobrar pasta A3";
+				yield return new WaitForSeconds (2.5f);
+
+				int damage = Random.Range (50,60);
+				player1Health -= damage;
+
+				// animação do player tomando dano
+				Animator playerAnim = GameObject.FindGameObjectWithTag ("battlePlayer").GetComponent<Animator> ();
+				playerAnim.SetBool ("tomarDano", true);
+				yield return new WaitForSeconds (0.5f);
+				playerAnim.SetBool ("tomarDano", false);
+
+			}
+
+			if (player2Health <= 30) {
+				statusText.text = " Adorno se curou!";
+				yield return new WaitForSeconds (2.5f);	
+				int cura = Random.Range (35, 50);
+				player2Health += cura;  
+			}
+		}
+
 		habilitarBotoes();
         SwitchPlayers();
 
@@ -580,6 +646,7 @@ public class BattleController : MonoBehaviour
 		TriggerNapoleao.napoleao = false;
 		TriggerClaytinho.claytinho = false;
 		TriggerTutorial.tutorial = false;
+		TriggerAdorno.adorno = false;
 	}
 
 	private void OnEnable()
