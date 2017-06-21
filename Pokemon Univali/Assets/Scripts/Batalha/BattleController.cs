@@ -45,11 +45,7 @@ public class BattleController : MonoBehaviour
 	{
 		//Time.timeScale = 1;
         player1Health = 100;
-		if (TriggerAluno2f.aluno2f == true) {
-			player2Health = 50;
-		} else {
-			player2Health = 100;
-		}
+		player2Health = 100;
 		mana = 100;
         player1Text.text = "Vida: " + player1Health + " Mana: " + mana;
         StartPlayer1Turn();
@@ -594,7 +590,7 @@ public class BattleController : MonoBehaviour
     {
         if (player1Health > 0 && player1Turn && mana >= 25)
         {
-            mana -= 25;
+            //mana -= 25;
             Player1cura();
             SwitchPlayers();
         }
@@ -628,7 +624,7 @@ public class BattleController : MonoBehaviour
 
 	void desabilitarBotoes(){
 		poder1.interactable = false;
-		poder2.interactable = false;
+		//poder2.interactable = false;
 		poder3.interactable = false;
 		poder4.interactable = false;
 		poder5.interactable = false;	
@@ -655,6 +651,9 @@ public class BattleController : MonoBehaviour
 		desabilitarSkills ();
 		habilitarBotoes ();
 		Time.timeScale = 1;
+		if (TriggerAluno2f.aluno2f == true){
+			player2Health = 50;
+		}
 		player1Turn = true;
 		StartPlayer1Turn();
 	}
@@ -664,8 +663,9 @@ public class BattleController : MonoBehaviour
 		Sair.SetActive(false);
 
 		player1Turn = true;
-		player1Health = 100;
+		//player1Health = 100;
 		player2Health = 100;
+
 		mana = 100;
 		player1Text.text = "Vida: " + player1Health + " Mana: " + mana;
 		player2Text.text = "Vida: " + player2Health;
