@@ -18,6 +18,9 @@ public class BattleController : MonoBehaviour
 	public Button poder5;
 
 	public GameObject poderNapo;
+	public GameObject itemNapo;
+
+	public GameObject napoleao;
 	//fim dos poderes
 
 	public GameObject Sair;
@@ -57,6 +60,11 @@ public class BattleController : MonoBehaviour
 		player1Text.text = "Vida: " + player1Health + " Mana: " + mana ;
 		player2Text.text = "Vida: " + player2Health;
 
+//		if (napoItem.coletouNapo == true) {
+//			itemNapo.SetActive (false);
+//			poderNapo.SetActive (true);
+//		}
+
 		if (player2Health <= 0){
 
 			if (TriggerAluno2f.aluno2f == true) {
@@ -75,7 +83,9 @@ public class BattleController : MonoBehaviour
 			if (TriggerNapoleao.napoleao == true) {
 				XPcontroller.xp += 54;
 				blockNapoleao.SetActive (false);
-				poderNapo.SetActive (true);
+				Destroy(napoleao, 0F);
+				itemNapo.SetActive (true);
+				//poderNapo.SetActive (true);
 			}
 
 			if (TriggerAdorno.adorno == true) {
